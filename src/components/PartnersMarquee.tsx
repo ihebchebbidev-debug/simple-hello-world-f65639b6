@@ -39,7 +39,7 @@ export default function PartnersMarquee() {
       }}
       aria-label="Partenaires internationaux"
     >
-      <div className="flex w-max animate-marquee items-center gap-8 py-1 sm:gap-12 md:gap-16 motion-reduce:animate-none">
+      <div data-partners-marquee className="flex w-max items-center gap-8 py-1 sm:gap-12 md:gap-16">
         {loop.map((p, i) => (
           <div
             key={i}
