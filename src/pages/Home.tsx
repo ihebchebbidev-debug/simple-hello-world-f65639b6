@@ -103,18 +103,18 @@ export default function Home() {
       />
 
       {/* HERO — split with curved-left field image flush to right edge on desktop */}
-      <section ref={heroRef} className="relative overflow-hidden bg-surface pt-28 sm:pt-32 md:pt-36">
+      <section ref={heroRef} className="relative overflow-hidden bg-surface pt-24 sm:pt-24 md:pt-28">
         <div className="container-x">
-          <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
+          <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
             {/* Copy */}
-            <div className="relative z-10 lg:col-span-6 lg:pt-6">
+            <div className="relative z-10 lg:col-span-6 lg:pt-2">
               {/* soft ambient glow behind headline */}
               <div aria-hidden className="pointer-events-none absolute -left-16 -top-10 h-72 w-72 rounded-full bg-primary-100/60 blur-3xl" />
 
 
               <motion.h1
                 initial="hidden" animate="show" variants={fadeUp} custom={1}
-                className="relative mt-6 font-display text-[clamp(2.25rem,4.6vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.025em] text-ink"
+                className="relative mt-2 font-display text-[clamp(2rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-[-0.025em] text-ink"
               >
                 Intrants agricoles{' '}
                 <span className="text-primary-600">de qualité internationale</span>,
@@ -123,7 +123,7 @@ export default function Home() {
 
               <motion.p
                 initial="hidden" animate="show" variants={fadeUp} custom={2}
-                className="relative mt-6 max-w-lg text-[16px] leading-[1.7] text-ink/65"
+                className="relative mt-4 max-w-lg text-[15px] leading-[1.65] text-ink/65"
               >
                 Depuis 2003, Atlas Agricole importe et distribue des solutions
                 phytosanitaires, nutritionnelles et biostimulantes homologuées,
@@ -133,14 +133,14 @@ export default function Home() {
 
               <motion.div
                 initial="hidden" animate="show" variants={fadeUp} custom={3}
-                className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4"
+                className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4"
               >
                 <Link to="/produits" className="btn-primary w-full justify-center sm:w-auto">
                   Découvrir nos produits <ArrowRight className="h-4 w-4" strokeWidth={2} />
                 </Link>
                 <Link
                   to="/a-propos"
-                  className="inline-flex w-full items-center justify-center rounded-btn border border-ink/15 bg-white px-6 py-3.5 text-[15px] font-semibold text-ink transition-colors hover:border-primary-600 hover:text-primary-700 sm:w-auto"
+                  className="inline-flex w-full items-center justify-center rounded-btn border border-ink/15 bg-white px-6 py-3 text-[15px] font-semibold text-ink transition-colors hover:border-primary-600 hover:text-primary-700 sm:w-auto"
                 >
                   En savoir plus
                 </Link>
@@ -151,7 +151,7 @@ export default function Home() {
             <div className="relative lg:col-span-6">
               <div className="relative lg:absolute lg:left-0 lg:top-1/2 lg:-translate-y-1/2 lg:w-[calc(50vw+24px)] lg:pr-0">
                 <div
-                  className="relative h-[280px] w-full overflow-hidden rounded-[48px] shadow-premium sm:h-[380px] md:h-[520px] lg:h-[620px] lg:rounded-none lg:rounded-l-[160px]"
+                  className="relative h-[240px] w-full overflow-hidden rounded-[40px] shadow-premium sm:h-[320px] md:h-[420px] lg:h-[460px] lg:rounded-none lg:rounded-l-[140px]"
                 >
                   <img
                     src={heroField}
@@ -164,7 +164,7 @@ export default function Home() {
                 <HeroLeaves targetRef={heroRef} />
               </div>
               {/* Placeholder to preserve grid height on desktop when image is absolute */}
-              <div className="hidden lg:block lg:h-[620px]" aria-hidden />
+              <div className="hidden lg:block lg:h-[460px]" aria-hidden />
             </div>
           </div>
 
@@ -173,8 +173,9 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.8, ease }}
-            className="relative z-20 mx-auto mt-10 grid max-w-6xl grid-cols-2 gap-2 rounded-3xl bg-white p-4 shadow-premium ring-1 ring-black/5 md:mt-14 md:grid-cols-4 md:gap-0 md:p-6"
+            className="relative z-20 mx-auto mt-8 grid max-w-6xl grid-cols-2 gap-2 rounded-3xl bg-white p-3 shadow-premium ring-1 ring-black/5 md:mt-10 md:grid-cols-4 md:gap-0 md:p-5"
           >
+
             {[
               { I: IconUsers, k: '+400', l: 'Clients directs' },
               { I: IconLeaf, k: '+60', l: 'Produits' },
@@ -183,12 +184,12 @@ export default function Home() {
             ].map((s, i) => (
               <div
                 key={s.l}
-                className={`flex items-center gap-4 px-2 py-3 md:px-6 ${
+                className={`flex items-center gap-3 px-2 py-2 md:px-5 md:py-2 ${
                   i > 0 ? 'md:border-l md:border-ink/10' : ''
                 }`}
               >
-                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-primary-50 text-primary-600">
-                  <s.I className="h-6 w-6" />
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-primary-50 text-primary-600">
+                  <s.I className="h-5 w-5" />
                 </span>
                 <div>
                   <p className="font-display text-xl font-extrabold leading-tight text-ink md:text-2xl">
