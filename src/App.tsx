@@ -45,6 +45,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/a-propos" element={<About />} />
+          <Route path="/notre-mission" element={<NotreMission />} />
+          <Route path="/nos-valeurs" element={<NosValeurs />} />
           <Route path="/produits" element={<Products />} />
           <Route path="/produits/:slug" element={<ProductDetail />} />
           <Route path="/actualites" element={<News />} />
