@@ -178,50 +178,58 @@
     isolation: isolate;
     background:
       linear-gradient(135deg,
-        color-mix(in oklab, #ffd54a 22%, transparent) 0%,
-        transparent 42%,
-        transparent 60%,
-        color-mix(in oklab, #ffe27a 14%, transparent) 100%),
+        color-mix(in oklab, #ffd54a 45%, transparent) 0%,
+        color-mix(in oklab, #ffe27a 18%, transparent) 30%,
+        transparent 55%,
+        color-mix(in oklab, #ffe27a 32%, transparent) 100%),
       var(--color-primary);
     color: #fff;
     box-shadow:
       var(--shadow-soft),
-      inset 0 1px 0 rgba(255, 235, 150, 0.35),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+      inset 0 1px 0 rgba(255, 235, 150, 0.6),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.08),
+      0 0 18px -6px rgba(255, 210, 90, 0.55);
   }
   .btn-primary::before {
     content: "";
     position: absolute;
     inset: 0;
-    z-index: -1;
+    z-index: 0;
     background: linear-gradient(
       110deg,
-      transparent 20%,
-      rgba(255, 230, 130, 0.55) 45%,
-      rgba(255, 245, 200, 0.85) 50%,
-      rgba(255, 230, 130, 0.55) 55%,
-      transparent 80%
+      transparent 15%,
+      rgba(255, 235, 140, 0.75) 42%,
+      rgba(255, 250, 210, 1) 50%,
+      rgba(255, 235, 140, 0.75) 58%,
+      transparent 85%
     );
     transform: translateX(-120%);
-    transition: transform 900ms var(--ease-expo);
-    mix-blend-mode: screen;
+    animation: btn-shine 2.8s var(--ease-expo) infinite;
     pointer-events: none;
   }
+  .btn-primary > * { position: relative; z-index: 1; }
   .btn-primary:hover {
     background:
       linear-gradient(135deg,
-        color-mix(in oklab, #ffd54a 30%, transparent) 0%,
-        transparent 45%,
+        color-mix(in oklab, #ffd54a 55%, transparent) 0%,
+        color-mix(in oklab, #ffe27a 25%, transparent) 35%,
         transparent 58%,
-        color-mix(in oklab, #ffe27a 20%, transparent) 100%),
+        color-mix(in oklab, #ffe27a 40%, transparent) 100%),
       var(--color-primary-600);
     box-shadow:
       var(--shadow-card),
-      inset 0 1px 0 rgba(255, 235, 150, 0.45),
-      0 0 0 1px rgba(255, 210, 90, 0.25),
-      0 8px 24px -12px rgba(255, 200, 70, 0.35);
+      inset 0 1px 0 rgba(255, 235, 150, 0.7),
+      0 0 0 1px rgba(255, 210, 90, 0.4),
+      0 10px 30px -10px rgba(255, 200, 70, 0.6),
+      0 0 24px -4px rgba(255, 220, 110, 0.7);
   }
-  .btn-primary:hover::before { transform: translateX(120%); }
+  .btn-primary:hover::before { animation-duration: 1.2s; }
+
+  @keyframes btn-shine {
+    0%   { transform: translateX(-120%); }
+    60%  { transform: translateX(120%); }
+    100% { transform: translateX(120%); }
+  }
 
   .btn-outline { @apply btn; background: transparent; color: var(--color-ink); border: 1px solid color-mix(in oklab, var(--color-ink) 15%, transparent); }
   .btn-outline:hover { border-color: color-mix(in oklab, var(--color-ink) 40%, transparent); }
