@@ -1,0 +1,233 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   DESIGN TOKENS — single source of truth
+   Consumed by Tailwind (see tailwind.config.js) and components.
+   ============================================================ */
+@layer base {
+  :root {
+    color-scheme: light;
+
+    /* — Brand colors — */
+    --color-primary:      #1B5E20;   /* filled CTAs */
+    --color-primary-600:  #2E7D32;
+    --color-primary-500:  #43A047;   /* brand accent, icons, links */
+    --color-primary-100:  #C6E1C9;
+    --color-primary-50:   #E8F3E9;
+    --color-primary-900:  #0E3D14;
+
+    --color-accent:       #FFB300;   /* amber — 1-2 elements per screen */
+    --color-accent-soft:  #FFE29A;
+
+    --color-ink:          #1F2A2E;   /* body text — deeper for AAA contrast on white */
+    --color-ink-muted:    #566468;
+    --color-surface:      #FFFFFF;   /* app background — pure white, matches refs */
+    --color-surface-alt:  #F7FAF6;   /* alt band for subtle section separation */
+    --color-white:        #FFFFFF;   /* cards */
+    --color-hairline:     #ECEFEA;   /* borders / dividers on white */
+
+    --color-success:      #4CAF50;
+    --color-danger:       #E53935;
+
+    /* — Typography — */
+    --font-display: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+    --font-body:    'Inter', ui-sans-serif, system-ui, sans-serif;
+
+    --fw-regular:  400;
+    --fw-medium:   500;
+    --fw-semibold: 600;
+    --fw-bold:     700;
+    --fw-extra:    800;
+
+    --lh-title: 1.2;
+    --lh-body:  1.6;
+
+    --tracking-tight:   -0.02em;
+    --tracking-eyebrow:  0.15em;
+
+    /* Fluid type scale (hierarchy: 1=hero, 5=micro) */
+    --fs-1: clamp(2rem,    3.6vw, 3rem);       /* H1 / hero */
+    --fs-2: clamp(1.5rem,  2.6vw, 2.125rem);   /* H2 / section */
+    --fs-3: clamp(1.175rem,1.6vw, 1.5rem);     /* H3 / card title */
+    --fs-4: 1rem;                              /* lede */
+    --fs-body: 0.9375rem;                      /* 15px paragraph */
+    --fs-label: 0.875rem;                      /* 14px nav / label */
+    --fs-btn: 0.8125rem;                       /* 13px button / eyebrow */
+    --fs-micro: 0.6875rem;                     /* 11px meta */
+
+    /* — Spacing scale (4pt grid) — */
+    --space-1:  0.25rem;
+    --space-2:  0.5rem;
+    --space-3:  0.75rem;
+    --space-4:  1rem;
+    --space-5:  1.5rem;
+    --space-6:  2rem;
+    --space-7:  3rem;
+    --space-8:  4rem;
+    --space-9:  6rem;
+    --space-10: 8rem;
+
+    /* — Radius — */
+    --radius-btn:  14px;
+    --radius-card: 24px;
+    --radius-img:  28px;
+    --radius-hero: 32px;
+
+    /* — Shadows — */
+    --shadow-soft:    0 4px 20px -8px rgba(38, 50, 56, 0.08);
+    --shadow-card:    0 12px 40px -12px rgba(24, 94, 32, 0.14);
+    --shadow-premium: 0 24px 60px -20px rgba(24, 94, 32, 0.25);
+
+    /* — Motion — */
+    --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --dur-fast:   180ms;
+    --dur-base:   300ms;
+    --dur-slow:   600ms;
+
+    /* — Layout — */
+    --container-max: 1280px;
+    --container-pad: 1.5rem;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-weight: var(--fw-regular);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--color-ink);
+    line-height: var(--lh-title);
+    letter-spacing: var(--tracking-tight);
+    font-weight: var(--fw-bold);
+  }
+  h1 { font-size: var(--fs-1); font-weight: var(--fw-bold); }
+  h2 { font-size: var(--fs-2); font-weight: var(--fw-semibold); }
+  h3 { font-size: var(--fs-3); font-weight: var(--fw-semibold); }
+  h4 { font-size: var(--fs-4); font-weight: var(--fw-semibold); }
+
+  p { line-height: var(--lh-body); }
+  strong, b { font-weight: var(--fw-semibold); }
+  ::selection { background: var(--color-primary); color: #fff; }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full px-3 sm:px-4 lg:px-6;
+    max-width: var(--container-max);
+  }
+
+  /* Eyebrow — Inter 600, uppercase, tracked, brand green */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-body);
+    font-size: var(--fs-btn);
+    font-weight: var(--fw-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-eyebrow);
+    color: var(--color-primary-500);
+  }
+  .eyebrow::before {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 2rem;
+    background: color-mix(in oklab, var(--color-primary-500) 60%, transparent);
+  }
+
+  /* Numbers / KPIs — Manrope Bold, tabular */
+  .stat, .num {
+    font-family: var(--font-display);
+    font-weight: var(--fw-bold);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+
+  /* Buttons — Inter SemiBold 14px */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: 0.875rem 1.5rem;
+    border-radius: var(--radius-btn);
+    font-family: var(--font-body);
+    font-size: var(--fs-btn);
+    font-weight: var(--fw-semibold);
+    transition: all var(--dur-base) var(--ease-expo);
+  }
+  .btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--color-surface), 0 0 0 4px var(--color-primary-500);
+  }
+  .btn-primary { @apply btn; background: var(--color-primary); color: #fff; box-shadow: var(--shadow-soft); }
+  .btn-primary:hover { background: var(--color-primary-600); box-shadow: var(--shadow-card); }
+  .btn-outline { @apply btn; background: transparent; color: var(--color-ink); border: 1px solid color-mix(in oklab, var(--color-ink) 15%, transparent); }
+  .btn-outline:hover { border-color: color-mix(in oklab, var(--color-ink) 40%, transparent); }
+  .btn-ghost { @apply btn; color: var(--color-ink); }
+  .btn-ghost:hover { background: var(--color-primary-50); color: var(--color-primary); }
+
+  .card {
+    background: var(--color-white);
+    border-radius: var(--radius-card);
+    border: 1px solid var(--color-hairline);
+    box-shadow: 0 1px 2px rgba(15, 23, 20, 0.03), 0 8px 24px -16px rgba(15, 23, 20, 0.08);
+    transition: all var(--dur-base) var(--ease-expo);
+  }
+  .card-hover:hover { transform: translateY(-4px); border-color: color-mix(in oklab, var(--color-primary-500) 30%, var(--color-hairline)); box-shadow: var(--shadow-card); }
+
+  .section-alt { background: var(--color-surface-alt); }
+  .hairline { border-color: var(--color-hairline); }
+
+  .link-under {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-weight: var(--fw-medium);
+    color: var(--color-primary);
+  }
+  .link-under::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -2px;
+    height: 1px; width: 100%;
+    background: var(--color-primary);
+    transform: scaleX(0); transform-origin: right;
+    transition: transform var(--dur-base) var(--ease-expo);
+  }
+  .link-under:hover::after { transform: scaleX(1); transform-origin: left; }
+
+  .icon-line { color: var(--color-primary-500); }
+
+  .num-chip {
+    display: inline-grid;
+    place-items: center;
+    height: 2.25rem; width: 2.25rem;
+    border-radius: 9999px;
+    background: var(--color-primary-50);
+    color: var(--color-primary);
+    font-family: var(--font-display);
+    font-weight: var(--fw-bold);
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    box-shadow: 0 0 0 1px var(--color-primary-100);
+  }
+
+  nav a { font-weight: var(--fw-medium); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
