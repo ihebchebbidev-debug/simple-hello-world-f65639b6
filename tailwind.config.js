@@ -115,7 +115,7 @@ export default {
         'fade-in': 'fade-in 0.8s cubic-bezier(0.16,1,0.3,1) both',
         'leaf-fall': 'leaf-fall linear infinite',
         'progress-slide': 'progress-slide 1.4s cubic-bezier(0.4,0,0.2,1) infinite',
-        'marquee': 'marquee 35s linear infinite',
+        'marquee': 'marquee 22s linear infinite',
       },
 
     },
