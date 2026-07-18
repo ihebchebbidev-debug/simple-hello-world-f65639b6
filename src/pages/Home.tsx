@@ -62,29 +62,29 @@ function HeroLeaves({ targetRef }: { targetRef: React.RefObject<HTMLElement> }) 
 
   return (
     <>
-      {/* top-left, hugging the border */}
+      {/* top-left corner of image */}
       <motion.img
         src={leafGreen} alt="" aria-hidden
         style={{ y: y1, opacity: o, rotate: -22 }}
-        className={`${common} -left-8 -top-8 h-28 w-28 sm:-left-10 sm:-top-10 sm:h-40 sm:w-40 md:-left-14 md:-top-14 md:h-56 md:w-56 lg:h-64 lg:w-64 drop-shadow-xl`}
+        className={`${common} -left-6 -top-6 h-20 w-20 sm:-left-8 sm:-top-8 sm:h-28 sm:w-28 md:h-36 md:w-36 lg:left-2 lg:top-2 lg:h-44 lg:w-44 drop-shadow-xl`}
       />
-      {/* top-right corner */}
+      {/* top-right corner of image */}
       <motion.img
         src={leafAmber} alt="" aria-hidden
         style={{ y: y2, opacity: o, rotate: 35 }}
-        className={`${common} -right-6 -top-6 h-24 w-24 sm:-right-8 sm:-top-8 sm:h-36 sm:w-36 md:-right-12 md:-top-10 md:h-48 md:w-48 lg:h-56 lg:w-56 drop-shadow-xl`}
+        className={`${common} -right-4 -top-6 h-20 w-20 sm:-right-6 sm:-top-8 sm:h-28 sm:w-28 md:h-36 md:w-36 lg:right-4 lg:top-2 lg:h-40 lg:w-40 drop-shadow-xl`}
       />
-      {/* bottom-left */}
+      {/* bottom-left corner of image */}
       <motion.img
         src={leafOlive} alt="" aria-hidden
         style={{ y: y2, opacity: o, rotate: -140 }}
-        className={`${common} -bottom-8 -left-6 h-24 w-24 sm:h-36 sm:w-36 md:-bottom-12 md:-left-10 md:h-48 md:w-48 lg:h-56 lg:w-56 drop-shadow-xl`}
+        className={`${common} -bottom-6 -left-4 h-20 w-20 sm:-bottom-8 sm:-left-6 sm:h-28 sm:w-28 md:h-36 md:w-36 lg:bottom-4 lg:left-2 lg:h-40 lg:w-40 drop-shadow-xl`}
       />
-      {/* bottom-right */}
+      {/* bottom-right corner of image */}
       <motion.img
         src={leafRust} alt="" aria-hidden
         style={{ y: y1, opacity: o, rotate: 160 }}
-        className={`${common} -bottom-6 -right-8 h-28 w-28 sm:-bottom-10 sm:-right-10 sm:h-40 sm:w-40 md:-bottom-14 md:-right-14 md:h-56 md:w-56 lg:h-64 lg:w-64 drop-shadow-xl`}
+        className={`${common} -bottom-6 -right-6 h-20 w-20 sm:-bottom-8 sm:-right-8 sm:h-28 sm:w-28 md:h-36 md:w-36 lg:bottom-4 lg:right-4 lg:h-44 lg:w-44 drop-shadow-xl`}
       />
     </>
   );
