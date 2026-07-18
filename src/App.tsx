@@ -6,6 +6,8 @@ import ScrollToTop from './components/ScrollToTop';
 import LoadingScreen from './components/LoadingScreen';
 import Home from './pages/Home';
 import About from './pages/About';
+import NotreMission from './pages/NotreMission';
+import NosValeurs from './pages/NosValeurs';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
 import News from './pages/News';
@@ -43,6 +45,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/a-propos" element={<About />} />
+          <Route path="/notre-mission" element={<NotreMission />} />
+          <Route path="/nos-valeurs" element={<NosValeurs />} />
           <Route path="/produits" element={<Products />} />
           <Route path="/produits/:slug" element={<ProductDetail />} />
           <Route path="/actualites" element={<News />} />

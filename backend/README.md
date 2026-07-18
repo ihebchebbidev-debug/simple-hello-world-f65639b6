@@ -1,45 +1,70 @@
-# Atlas Agricole — Backend API
+# Atlas Agricole — PHP / MySQL backend
 
-Base URL: `https://draminesaid.com/directadmin/atlasagricol/`
+Small PHP endpoint that receives the Contact form and stores it in MySQL.
 
-## Setup
+## 1. Create the database
 
-1. Upload the entire `backend/` folder contents to `draminesaid.com/directadmin/atlasagricol/`.
-2. Run `migrations.sql` on the MySQL database (`dramines_directadmin`).
-3. Ensure `uploads/` folder is writable (chmod 755).
-4. Verify PHP has `pdo_mysql`, `fileinfo`, and outbound HTTP (`allow_url_fopen=On`) for geo lookups.
+```bash
+mysql -u root -p < backend/schema.sql
+```
 
-## Endpoints
+Then create the app user (see commented section at the bottom of `schema.sql`).
 
-### Products
-- `GET  products/list.php?category=&search=&include_inactive=1`
-- `GET  products/get.php?slug=xxx` or `?id=1`
-- `POST products/create.php` — JSON body
-- `POST products/update.php` — JSON body (must include `id`)
-- `POST products/delete.php?id=1`
-- `POST products/upload-image.php` — multipart `file`, optional `product_id`
-- `POST products/delete-image.php` — JSON `{product_id, url}`
+## 2. Deploy the endpoint
 
-### Visitors
-- `POST visitors/track.php` — JSON `{page_url, referrer, language, screen_size, session_id}`
-- `GET  visitors/list.php?limit=200&offset=0`
-- `GET  visitors/stats.php`
+Upload `backend/contact.php` to your PHP host, e.g.:
 
-## Product JSON shape
+```
+/public_html/backend/contact.php
+```
+
+Set DB credentials as environment variables on the server (recommended), or
+edit the defaults at the top of `contact.php`:
+
+```
+DB_HOST=localhost
+DB_NAME=atlas_agricole
+DB_USER=atlas_user
+DB_PASS=your-strong-password
+NOTIFY_EMAIL=atlasagricole@planet.tn   # optional
+```
+
+## 3. Point the frontend to it
+
+Add to `.env` at the project root:
+
+```
+VITE_CONTACT_API_URL=https://atlasagricole.tn/backend/contact.php
+```
+
+Then rebuild the frontend. If the variable is not set, the form posts to
+`/backend/contact.php` relative to the site — useful if you host the PHP file
+under the same domain as the built React app.
+
+## 4. CORS
+
+Edit the `$allowedOrigins` array in `contact.php` to include your production
+domain(s). `http://localhost:8080` is included for local development.
+
+## Endpoint contract
+
+`POST /backend/contact.php`
+
+Body (JSON):
+
 ```json
 {
-  "name": "Trebon 30 EC",
-  "slug": "trebon-30-ec",
-  "category": "Insecticides",
-  "tone": "clay",
-  "short_description": "...",
-  "description": "...",
-  "homologation": "AMM n° 2456",
-  "main_image": "https://.../uploads/xxx.jpg",
-  "images": ["https://..."],
-  "usages": [{"crop":"Tomate","dose":"0.5 L/ha","target":"Noctuelles"}],
-  "composition": [{"name":"Étofenprox","percentage":"30%"}],
-  "benefits": ["Action rapide","Longue persistance"],
-  "is_active": 1
+  "name": "Ali Ben Salah",
+  "company": "GDA Zaghouan",
+  "email": "ali@example.tn",
+  "phone": "+216 22 000 000",
+  "need": "Tomate sous serre",
+  "message": "Bonjour, je cherche un programme fongicide…"
 }
 ```
+
+Response:
+
+- `200 { "ok": true, "id": 42 }`
+- `422 { "ok": false, "error": "Validation", "fields": { ... } }`
+- `500 { "ok": false, "error": "Server error" }`

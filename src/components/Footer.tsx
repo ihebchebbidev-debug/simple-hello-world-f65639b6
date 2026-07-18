@@ -28,8 +28,8 @@ const NAV_COLS = [
     title: 'Entreprise',
     links: [
       { to: '/a-propos', label: 'À propos' },
-      { to: '/a-propos', label: 'Notre mission' },
-      { to: '/a-propos', label: 'Nos valeurs' },
+      { to: '/notre-mission', label: 'Notre mission' },
+      { to: '/nos-valeurs', label: 'Nos valeurs' },
       { to: '/blogs', label: 'Blogs' },
       { to: '/contact', label: 'Contact' },
 

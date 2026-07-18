@@ -1,10 +1,69 @@
 import { useState } from 'react';
-import { Mail, Phone, MapPin, MessageCircle, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Mail, Phone, MapPin, MessageCircle, ArrowRight, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { z } from 'zod';
 import Seo from '@/components/Seo';
 import { Eyebrow } from '@/components/Section';
 
+const CONTACT_API_URL =
+  (import.meta.env.VITE_CONTACT_API_URL as string | undefined) ||
+  '/backend/contact.php';
+
+const contactSchema = z.object({
+  name: z.string().trim().min(2, 'Nom trop court').max(100),
+  company: z.string().trim().max(150).optional().or(z.literal('')),
+  email: z.string().trim().email('Email invalide').max(255),
+  phone: z.string().trim().max(40).optional().or(z.literal('')),
+  need: z.string().trim().max(200).optional().or(z.literal('')),
+  message: z.string().trim().min(10, 'Message trop court (10 caractères min.)').max(2000),
+});
+
+type FormState = z.infer<typeof contactSchema>;
+
+const INITIAL: FormState = { name: '', company: '', email: '', phone: '', need: '', message: '' };
+
 export default function Contact() {
-  const [sent, setSent] = useState(false);
+  const [values, setValues] = useState<FormState>(INITIAL);
+  const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const [errorMsg, setErrorMsg] = useState<string>('');
+
+  const set = (k: keyof FormState) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setValues((v) => ({ ...v, [k]: e.target.value }));
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrors({});
+    setErrorMsg('');
+
+    const parsed = contactSchema.safeParse(values);
+    if (!parsed.success) {
+      const fieldErrors: Partial<Record<keyof FormState, string>> = {};
+      for (const issue of parsed.error.issues) {
+        const k = issue.path[0] as keyof FormState;
+        if (!fieldErrors[k]) fieldErrors[k] = issue.message;
+      }
+      setErrors(fieldErrors);
+      return;
+    }
+
+    setStatus('sending');
+    try {
+      const res = await fetch(CONTACT_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(parsed.data),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || data?.ok === false) {
+        throw new Error(data?.error || `Erreur serveur (${res.status})`);
+      }
+      setStatus('sent');
+      setValues(INITIAL);
+    } catch (err: any) {
+      setStatus('error');
+      setErrorMsg(err?.message || 'Impossible d\'envoyer le message. Réessayez plus tard.');
+    }
+  };
 
   return (
     <>
@@ -47,39 +106,44 @@ export default function Contact() {
           </div>
 
           <div className="lg:col-span-8">
-            <form
-              onSubmit={(e) => { e.preventDefault(); setSent(true); }}
-              className="card p-8 md:p-10"
-            >
+            <form onSubmit={onSubmit} noValidate className="card p-8 md:p-10">
               <h2 className="text-2xl font-bold text-ink">Demander un devis</h2>
               <p className="mt-2 text-sm text-ink/60">Renseignez vos besoins, nous revenons vers vous rapidement.</p>
 
               <div className="mt-8 grid gap-5 sm:grid-cols-2">
-                <Field label="Nom complet" name="name" required />
-                <Field label="Société / Exploitation" name="company" />
-                <Field label="Email" name="email" type="email" required />
-                <Field label="Téléphone" name="phone" type="tel" />
+                <Field label="Nom complet" name="name" required value={values.name} onChange={set('name')} error={errors.name} />
+                <Field label="Société / Exploitation" name="company" value={values.company || ''} onChange={set('company')} error={errors.company} />
+                <Field label="Email" name="email" type="email" required value={values.email} onChange={set('email')} error={errors.email} />
+                <Field label="Téléphone" name="phone" type="tel" value={values.phone || ''} onChange={set('phone')} error={errors.phone} />
                 <div className="sm:col-span-2">
-                  <Field label="Culture / Besoin" name="need" />
+                  <Field label="Culture / Besoin" name="need" value={values.need || ''} onChange={set('need')} error={errors.need} />
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="mb-2 block text-sm font-medium text-ink/70">Message</label>
+                  <label className="mb-2 block text-sm font-medium text-ink/70">Message <span className="text-danger">*</span></label>
                   <textarea
-                    required
                     rows={5}
-                    className="w-full rounded-btn border border-ink/10 bg-white px-4 py-3 text-[15px] focus:border-primary focus:outline-none"
+                    value={values.message}
+                    onChange={set('message')}
+                    maxLength={2000}
+                    className={`w-full rounded-btn border bg-white px-4 py-3 text-[15px] focus:outline-none ${errors.message ? 'border-danger focus:border-danger' : 'border-ink/10 focus:border-primary'}`}
                     placeholder="Décrivez votre besoin…"
                   />
+                  {errors.message && <p className="mt-1 text-xs text-danger">{errors.message}</p>}
                 </div>
               </div>
 
-              <button type="submit" className="btn-primary mt-8">
-                Envoyer la demande <ArrowRight className="h-4 w-4" />
+              <button type="submit" disabled={status === 'sending'} className="btn-primary mt-8 disabled:opacity-60">
+                {status === 'sending' ? (<><Loader2 className="h-4 w-4 animate-spin" /> Envoi…</>) : (<>Envoyer la demande <ArrowRight className="h-4 w-4" /></>)}
               </button>
 
-              {sent && (
+              {status === 'sent' && (
                 <div className="mt-6 flex items-center gap-3 rounded-2xl bg-primary-50 p-4 text-sm text-primary-700">
                   <CheckCircle2 className="h-5 w-5" /> Merci ! Votre demande a bien été envoyée.
+                </div>
+              )}
+              {status === 'error' && (
+                <div className="mt-6 flex items-center gap-3 rounded-2xl bg-danger/10 p-4 text-sm text-danger">
+                  <AlertCircle className="h-5 w-5" /> {errorMsg}
                 </div>
               )}
             </form>
@@ -101,17 +165,27 @@ export default function Contact() {
   );
 }
 
-function Field({ label, name, type = 'text', required = false }: { label: string; name: string; type?: string; required?: boolean }) {
+function Field({
+  label, name, type = 'text', required = false, value, onChange, error,
+}: {
+  label: string; name: string; type?: string; required?: boolean;
+  value: string; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; error?: string;
+}) {
   return (
     <div>
-      <label htmlFor={name} className="mb-2 block text-sm font-medium text-ink/70">{label}{required && <span className="text-danger"> *</span>}</label>
+      <label htmlFor={name} className="mb-2 block text-sm font-medium text-ink/70">
+        {label}{required && <span className="text-danger"> *</span>}
+      </label>
       <input
         id={name}
         name={name}
         type={type}
-        required={required}
-        className="w-full rounded-btn border border-ink/10 bg-white px-4 py-3 text-[15px] focus:border-primary focus:outline-none"
+        value={value}
+        onChange={onChange}
+        maxLength={255}
+        className={`w-full rounded-btn border bg-white px-4 py-3 text-[15px] focus:outline-none ${error ? 'border-danger focus:border-danger' : 'border-ink/10 focus:border-primary'}`}
       />
+      {error && <p className="mt-1 text-xs text-danger">{error}</p>}
     </div>
   );
 }
