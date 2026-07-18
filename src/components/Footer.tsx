@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowUp, Phone, Mail, MapPin, Leaf } from 'lucide-react';
-import logo from '@/assets/atlas-logo.png';
+import logo from '@/assets/atlas-logo-white.png';
 import fieldImg from '@/assets/hero-field.jpg';
 import leafDecor from '@/assets/leaf-decor.png';
 import { fetchCategories, type Category } from '@/lib/categories-api';
@@ -77,7 +77,7 @@ export default function Footer() {
           <div className="grid gap-6 lg:grid-cols-12 lg:gap-8">
             {/* Brand */}
             <div className="lg:col-span-3">
-              <img src={logo} alt="Atlas Agricole S.A." className="h-10 w-auto brightness-0 invert" style={{ filter: 'brightness(0) invert(1)' }} />
+              <img src={logo} alt="Atlas Agricole S.A." className="h-12 w-auto" />
               <p className="mt-3 max-w-xs text-[13px] leading-relaxed text-white/70">
                 Spécialiste dans l'importation et la commercialisation d'intrants agricoles
                 de haute qualité en Tunisie.
