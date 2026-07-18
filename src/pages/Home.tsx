@@ -19,6 +19,10 @@ import {
 import heroField from '@/assets/hero-field.jpg';
 import handsPlant from '@/assets/hands-plant.jpg';
 import leafDecor from '@/assets/leaf-decor.png';
+import leafGreen from '@/assets/leaf-green.png';
+import leafAmber from '@/assets/leaf-amber.png';
+import leafOlive from '@/assets/leaf-olive.png';
+import leafRust from '@/assets/leaf-rust.png';
 import expertiseImg from '@/assets/expertise.jpg';
 import approachBg from '@/assets/approach-bg.jpg';
 import detailImg from '@/assets/detail.jpg';
@@ -58,15 +62,29 @@ function HeroLeaves({ targetRef }: { targetRef: React.RefObject<HTMLElement> }) 
 
   return (
     <>
+      {/* top-left, hugging the border */}
       <motion.img
-        src={leafDecor} alt="" aria-hidden
-        style={{ y: y1, opacity: o, rotate: -18 }}
-        className={`${common} -left-6 top-6 h-16 w-16 sm:h-20 sm:w-20 md:-left-10 md:top-10 md:h-28 md:w-28`}
+        src={leafGreen} alt="" aria-hidden
+        style={{ y: y1, opacity: o, rotate: -22 }}
+        className={`${common} -left-8 -top-8 h-28 w-28 sm:-left-10 sm:-top-10 sm:h-40 sm:w-40 md:-left-14 md:-top-14 md:h-56 md:w-56 lg:h-64 lg:w-64 drop-shadow-xl`}
       />
+      {/* top-right corner */}
       <motion.img
-        src={leafDecor} alt="" aria-hidden
-        style={{ y: y2, opacity: o, rotate: 140 }}
-        className={`${common} -bottom-2 right-6 h-14 w-14 sm:right-14 sm:h-20 sm:w-20 md:h-24 md:w-24`}
+        src={leafAmber} alt="" aria-hidden
+        style={{ y: y2, opacity: o, rotate: 35 }}
+        className={`${common} -right-6 -top-6 h-24 w-24 sm:-right-8 sm:-top-8 sm:h-36 sm:w-36 md:-right-12 md:-top-10 md:h-48 md:w-48 lg:h-56 lg:w-56 drop-shadow-xl`}
+      />
+      {/* bottom-left */}
+      <motion.img
+        src={leafOlive} alt="" aria-hidden
+        style={{ y: y2, opacity: o, rotate: -140 }}
+        className={`${common} -bottom-8 -left-6 h-24 w-24 sm:h-36 sm:w-36 md:-bottom-12 md:-left-10 md:h-48 md:w-48 lg:h-56 lg:w-56 drop-shadow-xl`}
+      />
+      {/* bottom-right */}
+      <motion.img
+        src={leafRust} alt="" aria-hidden
+        style={{ y: y1, opacity: o, rotate: 160 }}
+        className={`${common} -bottom-6 -right-8 h-28 w-28 sm:-bottom-10 sm:-right-10 sm:h-40 sm:w-40 md:-bottom-14 md:-right-14 md:h-56 md:w-56 lg:h-64 lg:w-64 drop-shadow-xl`}
       />
     </>
   );
@@ -93,13 +111,6 @@ export default function Home() {
               {/* soft ambient glow behind headline */}
               <div aria-hidden className="pointer-events-none absolute -left-16 -top-10 h-72 w-72 rounded-full bg-primary-100/60 blur-3xl" />
 
-              <motion.span
-                initial="hidden" animate="show" variants={fadeUp}
-                className="relative inline-flex items-center gap-2 rounded-full border border-primary-100 bg-primary-50/70 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-primary-700"
-              >
-                <span className="h-1.5 w-1.5 rounded-full bg-primary-600" />
-                Agriculture durable
-              </motion.span>
 
               <motion.h1
                 initial="hidden" animate="show" variants={fadeUp} custom={1}
