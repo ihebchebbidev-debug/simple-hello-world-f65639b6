@@ -30,9 +30,9 @@ const NAV_COLS = [
       { to: '/a-propos', label: 'À propos' },
       { to: '/a-propos', label: 'Notre mission' },
       { to: '/a-propos', label: 'Nos valeurs' },
-      { to: '/a-propos', label: 'Carrières' },
-      { to: '/actualites', label: 'Actualités' },
+      { to: '/blogs', label: 'Blogs' },
       { to: '/contact', label: 'Contact' },
+
     ],
   },
   {
