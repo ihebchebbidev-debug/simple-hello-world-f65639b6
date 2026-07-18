@@ -184,12 +184,12 @@ export default function Home() {
             ].map((s, i) => (
               <div
                 key={s.l}
-                className={`flex items-center gap-4 px-2 py-3 md:px-6 ${
+                className={`flex items-center gap-3 px-2 py-2 md:px-5 md:py-2 ${
                   i > 0 ? 'md:border-l md:border-ink/10' : ''
                 }`}
               >
-                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-primary-50 text-primary-600">
-                  <s.I className="h-6 w-6" />
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-primary-50 text-primary-600">
+                  <s.I className="h-5 w-5" />
                 </span>
                 <div>
                   <p className="font-display text-xl font-extrabold leading-tight text-ink md:text-2xl">
