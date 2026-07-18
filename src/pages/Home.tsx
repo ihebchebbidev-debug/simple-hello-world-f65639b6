@@ -549,7 +549,8 @@ export default function Home() {
 
 
       {/* CTA */}
-      <Section>
+      <Section className="!pb-0 md:!pb-0">
+
         <div className="relative overflow-hidden rounded-hero bg-ink">
           <img
             src={expertiseImg}
