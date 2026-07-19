@@ -134,11 +134,7 @@ export default function Products() {
 
         <div className="container-x relative">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.28em] text-primary-700">
-              Nos produits premium
-              <Leaf className="h-4 w-4" strokeWidth={1.75} />
-            </p>
-            <h1 className="mt-4 font-display text-[clamp(1.9rem,4.2vw,3rem)] font-extrabold leading-[1.05] tracking-[-0.02em] text-ink">
+            <h1 className="font-display text-[clamp(1.9rem,4.2vw,3rem)] font-extrabold leading-[1.05] tracking-[-0.02em] text-ink">
               Des produits premium pour des <span className="text-primary-700">résultats durables.</span>
             </h1>
             <p className="mt-4 text-[15px] leading-[1.65] text-ink/65">
@@ -146,6 +142,7 @@ export default function Products() {
               sélectionnées pour leur efficacité et leur respect de l'environnement.
             </p>
           </div>
+
         </div>
       </section>
 
