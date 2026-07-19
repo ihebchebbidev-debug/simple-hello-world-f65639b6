@@ -2,7 +2,7 @@
  * API config — points to the PHP backend folder.
  * Override in dev or production with VITE_API_BASE.
  */
-export const API_BASE = 'http://draminesaid.com/directadmin/atlasagricol/backend';
+export const API_BASE = 'https://draminesaid.com/directadmin/atlasagricol/backend';
 
 export const API = {
   productsList: `${API_BASE}/products/list.php`,

@@ -29,7 +29,7 @@ function normalizeImage(url: string | null | undefined): string {
   if (url.includes('/uploads/')) {
     const filename = url.split('/uploads/').pop();
     if (filename) {
-      return `http://draminesaid.com/directadmin/atlasagricol/backend/uploads/${filename}`;
+      return `https://draminesaid.com/directadmin/atlasagricol/backend/uploads/${filename}`;
     }
   }
   return url;

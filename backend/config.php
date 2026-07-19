@@ -19,17 +19,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 class Database {
-    private $host;
-    private $username;
-    private $password;
-    private $database;
+    private $host = "localhost";
+    private $username = "dramines_directadmin";
+    private $password = "8edaanPtEDCCAELVmh3w";
+    private $database = "dramines_directadmin";
     public $conn;
 
     public function __construct() {
-        $this->host = getenv('DB_HOST') ?: 'localhost';
-        $this->username = getenv('DB_USER') ?: getenv('DB_USERNAME') ?: 'root';
-        $this->password = getenv('DB_PASS') ?: getenv('DB_PASSWORD') ?: '';
-        $this->database = getenv('DB_NAME') ?: 'atlas_agricole';
+        // Credentials are now hardcoded in class properties
     }
 
     public function getConnection() {
@@ -92,7 +89,7 @@ function ensureUploadsDir() {
 }
 
 function getUploadUrl($filename) {
-    return 'http://draminesaid.com/directadmin/atlasagricol/backend/uploads/' . $filename;
+    return 'https://draminesaid.com/directadmin/atlasagricol/backend/uploads/' . $filename;
 }
 
 function decodeJsonField($value, $default = []) {
