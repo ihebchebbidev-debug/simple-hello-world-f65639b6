@@ -3,7 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 
 import {
   Grid3x3, Sprout, Shield, Bug, Wheat, Beaker,
-  Leaf, FlaskConical, ShieldCheck, Headphones, ArrowRight, Search, X,
+  Leaf, ArrowRight, Search, X,
 } from 'lucide-react';
 import Seo from '@/components/Seo';
 import ProductCard from '@/components/ProductCard';
@@ -12,6 +12,7 @@ import { fetchProducts } from '@/lib/products-api';
 import { cn } from '@/lib/cn';
 import leafDecor from '@/assets/leaf-decor.png';
 import tractorImg from '@/assets/hero.jpg';
+import productsHeroBg from '@/assets/products-hero-bg.jpg';
 
 const CAT_ICON: Record<(typeof CATEGORIES)[number], any> = {
   Tous: Grid3x3,
@@ -22,13 +23,6 @@ const CAT_ICON: Record<(typeof CATEGORIES)[number], any> = {
   Biostimulants: Leaf,
   Adjuvants: Beaker,
 };
-
-const FEATURES = [
-  { I: Leaf,         t: 'Qualité garantie',        s: 'Des produits testés\net approuvés' },
-  { I: FlaskConical, t: 'Innovation constante',    s: 'Des formulations\nà la pointe' },
-  { I: ShieldCheck,  t: 'Respect de l\'environnement', s: 'Des solutions plus sûres\npour vos cultures' },
-  { I: Headphones,   t: 'Accompagnement expert',   s: 'Nos experts à vos côtés\nà chaque étape' },
-];
 
 export default function Products() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -123,41 +117,31 @@ export default function Products() {
       />
 
       {/* ============ HERO ============ */}
-      <section className="relative overflow-hidden bg-surface pt-32 pb-16 md:pt-36 md:pb-24">
-        <img src={leafDecor} alt="" aria-hidden className="pointer-events-none absolute -left-10 top-32 h-64 w-64 -rotate-[20deg] opacity-25" />
-        <img src={leafDecor} alt="" aria-hidden className="pointer-events-none absolute right-4 bottom-8 h-48 w-48 rotate-[160deg] opacity-20" />
+      <section className="relative overflow-hidden pt-28 pb-10 md:pt-32 md:pb-14">
+        <img
+          src={productsHeroBg}
+          alt=""
+          aria-hidden
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/85 to-white/95" />
+        <div aria-hidden className="absolute inset-0 bg-gradient-to-r from-white/70 via-transparent to-white/70" />
+        <img src={leafDecor} alt="" aria-hidden className="pointer-events-none absolute -left-10 top-24 h-40 w-40 -rotate-[20deg] opacity-25" />
+        <img src={leafDecor} alt="" aria-hidden className="pointer-events-none absolute right-4 bottom-4 h-32 w-32 rotate-[160deg] opacity-20" />
 
         <div className="container-x relative">
-          <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
-            <div className="lg:col-span-6">
-              <p className="inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.28em] text-primary-700">
-                Nos produits premium
-                <Leaf className="h-4 w-4" strokeWidth={1.75} />
-              </p>
-              <h1 className="mt-6 font-display text-[clamp(2.25rem,4.8vw,3.75rem)] font-extrabold leading-[1.04] tracking-[-0.02em] text-ink">
-                Des produits premium<br />
-                pour des <span className="text-primary-700">résultats durables.</span>
-              </h1>
-              <p className="mt-6 max-w-xl text-[16px] leading-[1.7] text-ink/60">
-                Découvrez notre sélection de solutions agricoles de haute qualité,
-                sélectionnées pour leur efficacité et leur respect de l'environnement.
-              </p>
-            </div>
-
-            <div className="lg:col-span-6">
-              <div className="grid grid-cols-2 gap-4 rounded-[28px] bg-white/70 p-6 ring-1 ring-black/[0.05] backdrop-blur md:grid-cols-4 md:gap-3 md:p-8 shadow-[0_20px_60px_-30px_rgba(20,60,30,0.25)]">
-                {FEATURES.map((f) => (
-                  <div key={f.t} className="text-center transition-transform duration-300 hover:-translate-y-0.5">
-                    <span className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-primary/5 ring-1 ring-primary/20">
-                      <f.I className="h-6 w-6 text-primary-700" strokeWidth={1.75} />
-                    </span>
-                    <p className="mt-4 text-[13.5px] font-bold text-ink">{f.t}</p>
-                    <p className="mt-1.5 whitespace-pre-line text-[11.5px] leading-relaxed text-ink/55">{f.s}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.28em] text-primary-700">
+              Nos produits premium
+              <Leaf className="h-4 w-4" strokeWidth={1.75} />
+            </p>
+            <h1 className="mt-4 font-display text-[clamp(1.9rem,4.2vw,3rem)] font-extrabold leading-[1.05] tracking-[-0.02em] text-ink">
+              Des produits premium pour des <span className="text-primary-700">résultats durables.</span>
+            </h1>
+            <p className="mt-4 text-[15px] leading-[1.65] text-ink/65">
+              Découvrez notre sélection de solutions agricoles de haute qualité,
+              sélectionnées pour leur efficacité et leur respect de l'environnement.
+            </p>
           </div>
         </div>
       </section>
