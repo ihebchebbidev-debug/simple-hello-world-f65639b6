@@ -1,4 +1,4 @@
-import { PRODUCTS, type Product } from '@/data/products';
+import { type Product } from '@/data/products';
 import { API } from './config';
 
 // Raw shape returned by PHP backend
@@ -24,9 +24,21 @@ export type ApiProduct = {
 
 const VALID_TONES = ['sage', 'sand', 'mist', 'clay', 'sky', 'stone'] as const;
 
+function normalizeImage(url: string | null | undefined): string {
+  if (!url) return '';
+  if (url.includes('/uploads/')) {
+    const filename = url.split('/uploads/').pop();
+    if (filename) {
+      return `http://draminesaid.com/directadmin/atlasagricol/backend/uploads/${filename}`;
+    }
+  }
+  return url;
+}
+
 function normalize(p: ApiProduct): Product {
   const tone = (VALID_TONES.includes(p.tone as any) ? p.tone : 'sage') as Product['tone'];
-  const mainImg = p.main_image || p.images?.[0] || '';
+  const mainImg = normalizeImage(p.main_image || p.images?.[0]);
+  const images = (p.images || []).map(normalizeImage);
   return {
     id: String(p.id),
     slug: p.slug,
@@ -39,7 +51,7 @@ function normalize(p: ApiProduct): Product {
     homologation: p.homologation || '',
     usages: Array.isArray(p.usages) ? p.usages : [],
     // extras (typed loosely on Product)
-    images: p.images || [],
+    images,
     composition: p.composition || [],
     benefits: p.benefits || [],
     technical_sheet_url: p.technical_sheet_url || undefined,
@@ -58,11 +70,10 @@ export async function fetchProducts(): Promise<Product[]> {
     const r = await fetch(API.productsList);
     const j = await safeJson(r);
     if (!j.success) throw new Error(j.error || 'API error');
-    const arr = (j.data as ApiProduct[]).map(normalize);
-    return arr.length ? arr : PRODUCTS;
+    return (j.data as ApiProduct[]).map(normalize);
   } catch (e) {
-    console.warn('[products-api] falling back to local:', e);
-    return PRODUCTS;
+    console.warn('[products-api] error fetching products:', e);
+    return [];
   }
 }
 
@@ -72,8 +83,9 @@ export async function fetchProduct(slug: string): Promise<Product | undefined> {
     const j = await safeJson(r);
     if (!j.success) throw new Error(j.error || 'not found');
     return normalize(j.data as ApiProduct);
-  } catch {
-    return PRODUCTS.find((p) => p.slug === slug);
+  } catch (e) {
+    console.warn('[products-api] error fetching product:', e);
+    return undefined;
   }
 }
 

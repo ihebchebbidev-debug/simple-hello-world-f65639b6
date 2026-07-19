@@ -92,13 +92,7 @@ function ensureUploadsDir() {
 }
 
 function getUploadUrl($filename) {
-    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-    $host = $_SERVER['HTTP_HOST'];
-    $basePath = dirname($_SERVER['SCRIPT_NAME']);
-    // if in subfolder like /products, go up one
-    $basePath = preg_replace('#/(products|visitors)$#', '', $basePath);
-    $basePath = rtrim($basePath, '/');
-    return $protocol . '://' . $host . $basePath . '/uploads/' . $filename;
+    return 'http://draminesaid.com/directadmin/atlasagricol/backend/uploads/' . $filename;
 }
 
 function decodeJsonField($value, $default = []) {

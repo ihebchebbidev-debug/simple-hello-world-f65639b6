@@ -223,6 +223,76 @@ export default function Products() {
                 onClick={() => { setCat('Tous'); setCrop('Toutes cultures'); setQ(''); }}
                 className="mt-4 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-white px-5 py-2.5 text-[13px] font-semibold text-primary-700 hover:bg-primary/5"
               >
+              const active = cat === c;
+              return (
+                <button
+                  key={c}
+                  onClick={() => setCat(c)}
+                  className={cn(
+                    'inline-flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-[13px] font-semibold transition-all',
+                    active
+                      ? 'border-primary bg-primary text-white shadow-[0_8px_20px_-8px_rgba(24,94,32,0.5)]'
+                      : 'border-black/10 bg-white text-ink/75 hover:border-primary/40 hover:text-primary-700',
+                  )}
+                >
+                  <Icon className="h-4 w-4" strokeWidth={active ? 2 : 1.75} />
+                  {c}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Search + crop select */}
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="relative flex-1">
+              <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-ink/40" strokeWidth={2} />
+              <input
+                type="search"
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                placeholder="Rechercher un produit, une cible, une matière active…"
+                className="w-full rounded-full border border-black/10 bg-white py-2.5 pl-10 pr-4 text-[13.5px] text-ink placeholder:text-ink/40 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                aria-label="Rechercher un produit"
+              />
+            </div>
+            <select
+              value={crop}
+              onChange={(e) => setCrop(e.target.value)}
+              className="rounded-full border border-black/10 bg-white px-4 py-2.5 text-[13.5px] font-semibold text-ink focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+              aria-label="Filtrer par culture"
+            >
+              {crops.map((c) => <option key={c} value={c}>{c}</option>)}
+            </select>
+            {activeFilters && (
+              <button
+                onClick={() => { setCat('Tous'); setCrop('Toutes cultures'); setQ(''); }}
+                className="inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-white px-4 py-2.5 text-[13px] font-semibold text-ink/70 hover:border-primary/40 hover:text-primary-700"
+              >
+                <X className="h-3.5 w-3.5" strokeWidth={2} /> Effacer
+              </button>
+            )}
+          </div>
+
+          <p className="text-[12px] font-medium text-ink/50">
+            {filtered.length} produit{filtered.length > 1 ? 's' : ''} {activeFilters ? 'correspondant à vos filtres' : 'au catalogue'}
+          </p>
+        </div>
+      </section>
+
+      {/* ============ PRODUCT GRID ============ */}
+      <section className="bg-[#FAFAF7] py-16 md:py-20">
+        <div className="container-x">
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {filtered.map((p) => <ProductCard key={p.id} p={p} />)}
+          </div>
+
+          {filtered.length === 0 && (
+            <div className="mt-16 text-center">
+              <p className="text-ink/60">Aucun produit ne correspond à ces filtres.</p>
+              <button
+                onClick={() => { setCat('Tous'); setCrop('Toutes cultures'); setQ(''); }}
+                className="mt-4 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-white px-5 py-2.5 text-[13px] font-semibold text-primary-700 hover:bg-primary/5"
+              >
                 Réinitialiser les filtres
               </button>
             </div>
@@ -231,7 +301,7 @@ export default function Products() {
       </section>
 
       {/* ============ CTA BAND ============ */}
-      <section className="pb-24">
+      <section className="pb-8">
         <div className="container-x">
           <div className="relative grid overflow-hidden rounded-[28px] bg-[#0F3123] text-white md:grid-cols-[minmax(0,340px)_1fr] md:items-stretch">
             <div className="relative h-56 md:h-auto">
@@ -241,7 +311,7 @@ export default function Products() {
             </div>
             <div className="flex flex-col items-start gap-6 p-8 md:flex-row md:items-center md:justify-between md:p-12">
               <div className="max-w-xl">
-                <h3 className="font-display text-[clamp(1.35rem,2.2vw,1.75rem)] font-bold leading-tight tracking-[-0.01em]">
+                <h3 className="font-display text-[clamp(1.35rem,2.2vw,1.75rem)] font-bold leading-tight tracking-[-0.01em] text-white">
                   Vous ne trouvez pas le produit qu'il vous faut ?
                 </h3>
                 <p className="mt-3 text-[14px] leading-relaxed text-white/70">

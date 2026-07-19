@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import {
@@ -11,7 +11,8 @@ import Seo from '@/components/Seo';
 import { Section, SectionHeader, Eyebrow } from '@/components/Section';
 import Counter from '@/components/Counter';
 import ProductCard from '@/components/ProductCard';
-import { PRODUCTS } from '@/data/products';
+import { fetchProducts } from '@/lib/products-api';
+import type { Product } from '@/data/products';
 import {
   IconLeaf, IconSprout, IconUsers, IconGlobeLeaf, IconBadgeCheck,
   IconShieldLeaf, IconFlask, IconHandshake, IconSend, IconMessage,
@@ -94,6 +95,11 @@ function HeroLeaves({ targetRef }: { targetRef: React.RefObject<HTMLElement> }) 
 export default function Home() {
   const heroRef = useRef<HTMLElement>(null);
   const [showAllProducts, setShowAllProducts] = useState(false);
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    fetchProducts().then(setProducts);
+  }, []);
   return (
     <>
       <Seo
@@ -403,9 +409,9 @@ export default function Home() {
           </Link>
         </div>
         <div className="mt-16 grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
-          {(showAllProducts ? PRODUCTS : PRODUCTS.slice(0, 6)).map((p) => <ProductCard key={p.id} p={p} />)}
+          {(showAllProducts ? products : products.slice(0, 6)).map((p) => <ProductCard key={p.id} p={p} />)}
         </div>
-        {PRODUCTS.length > 6 && (
+        {products.length > 6 && (
           <div className="mt-12 flex justify-center">
             <button
               type="button"
