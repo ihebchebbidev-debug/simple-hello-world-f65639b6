@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
 import {
-  Grid3x3, Sprout, Shield, Bug, Wheat, Beaker,
+  Grid3x3, Sprout, Shield, Bug, Wheat, FlaskConical,
   Leaf, ArrowRight, Search, X,
 } from 'lucide-react';
 import Seo from '@/components/Seo';
@@ -22,7 +22,7 @@ const CAT_ICON: Record<string, any> = {
   Herbicides: Wheat,
   Engrais: Sprout,
   Biostimulants: Leaf,
-  Adjuvants: Beaker,
+  Adjuvants: FlaskConical,
 };
 const iconFor = (name: string) => CAT_ICON[name] ?? Leaf;
 
