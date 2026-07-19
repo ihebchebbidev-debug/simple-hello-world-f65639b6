@@ -3,7 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 
 import {
   Grid3x3, Sprout, Shield, Bug, Wheat, Beaker,
-  Leaf, FlaskConical, ShieldCheck, Headphones, ArrowRight, Search, X,
+  Leaf, ArrowRight, Search, X,
 } from 'lucide-react';
 import Seo from '@/components/Seo';
 import ProductCard from '@/components/ProductCard';
@@ -23,13 +23,6 @@ const CAT_ICON: Record<(typeof CATEGORIES)[number], any> = {
   Biostimulants: Leaf,
   Adjuvants: Beaker,
 };
-
-const FEATURES = [
-  { I: Leaf,         t: 'Qualité garantie',        s: 'Des produits testés\net approuvés' },
-  { I: FlaskConical, t: 'Innovation constante',    s: 'Des formulations\nà la pointe' },
-  { I: ShieldCheck,  t: 'Respect de l\'environnement', s: 'Des solutions plus sûres\npour vos cultures' },
-  { I: Headphones,   t: 'Accompagnement expert',   s: 'Nos experts à vos côtés\nà chaque étape' },
-];
 
 export default function Products() {
   const [searchParams, setSearchParams] = useSearchParams();
