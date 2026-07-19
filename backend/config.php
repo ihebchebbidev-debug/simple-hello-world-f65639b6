@@ -2,12 +2,16 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 0);
 
-// CORS — allow all origins
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS, PATCH");
-header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, Accept, Origin, X-Auth-Token");
-header("Access-Control-Max-Age: 86400");
-header("Content-Type: application/json; charset=UTF-8");
+function sendCorsHeaders(): void {
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS, PATCH");
+    header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, Accept, Origin, X-Auth-Token");
+    header("Access-Control-Max-Age: 86400");
+    header("Vary: Origin");
+    header("Content-Type: application/json; charset=UTF-8");
+}
+
+sendCorsHeaders();
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
@@ -15,11 +19,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 class Database {
-    private $host = "localhost";
-    private $username = "dramines_directadmin";
-    private $password = "8edaanPtEDCCAELVmh3w";
-    private $database = "dramines_directadmin";
+    private $host;
+    private $username;
+    private $password;
+    private $database;
     public $conn;
+
+    public function __construct() {
+        $this->host = getenv('DB_HOST') ?: 'localhost';
+        $this->username = getenv('DB_USER') ?: getenv('DB_USERNAME') ?: 'root';
+        $this->password = getenv('DB_PASS') ?: getenv('DB_PASSWORD') ?: '';
+        $this->database = getenv('DB_NAME') ?: 'atlas_agricole';
+    }
 
     public function getConnection() {
         $this->conn = null;

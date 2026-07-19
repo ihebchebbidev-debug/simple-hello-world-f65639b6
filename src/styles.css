@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* ============================================================
-   DESIGN TOKENS — single source of truth
+   DESIGN TOKENS — singale source of truth
    Consumed by Tailwind (see tailwind.config.js) and components.
    ============================================================ */
 @layer base {

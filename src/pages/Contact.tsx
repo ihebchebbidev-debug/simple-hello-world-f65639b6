@@ -3,10 +3,11 @@ import { Mail, Phone, MapPin, MessageCircle, ArrowRight, CheckCircle2, AlertCirc
 import { z } from 'zod';
 import Seo from '@/components/Seo';
 import { Eyebrow } from '@/components/Section';
+import { API_BASE } from '@/lib/config';
 
 const CONTACT_API_URL =
-  (import.meta.env.VITE_CONTACT_API_URL as string | undefined) ||
-  '/backend/contact.php';
+  (import.meta.env.VITE_CONTACT_API_URL as string | undefined)?.trim() ||
+  `${API_BASE}/contact.php`;
 
 const contactSchema = z.object({
   name: z.string().trim().min(2, 'Nom trop court').max(100),

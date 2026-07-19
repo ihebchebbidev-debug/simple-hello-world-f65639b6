@@ -1,10 +1,12 @@
 /**
- * API config — points to the PHP backend hosted at draminesaid.com/directadmin/atlasagricol/
- * Override in dev with VITE_API_BASE.
+ * API config — points to the PHP backend folder.
+ * Override in dev or production with VITE_API_BASE.
  */
-export const API_BASE =
-  (import.meta.env.VITE_API_BASE as string) ||
-  'https://draminesaid.com/directadmin/atlasagricol';
+const runtimeBase =
+  (import.meta.env.VITE_API_BASE as string | undefined)?.trim() ||
+  (typeof window !== 'undefined' ? `${window.location.origin}/backend` : '/backend');
+
+export const API_BASE = runtimeBase.replace(/\/$/, '');
 
 export const API = {
   productsList: `${API_BASE}/products/list.php`,
