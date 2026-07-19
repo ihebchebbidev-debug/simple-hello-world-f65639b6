@@ -12,6 +12,7 @@ import { fetchProducts } from '@/lib/products-api';
 import { cn } from '@/lib/cn';
 import leafDecor from '@/assets/leaf-decor.png';
 import tractorImg from '@/assets/hero.jpg';
+import productsHeroBg from '@/assets/products-hero-bg.jpg';
 
 const CAT_ICON: Record<(typeof CATEGORIES)[number], any> = {
   Tous: Grid3x3,
