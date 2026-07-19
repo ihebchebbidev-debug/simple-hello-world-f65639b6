@@ -42,12 +42,13 @@ export default function Products() {
   // Sync category from URL (e.g. footer links)
   useEffect(() => {
     const v = searchParams.get('category');
-    if (v && (CATEGORIES as readonly string[]).includes(v)) {
-      setCat(v as (typeof CATEGORIES)[number]);
+    if (v && catNames.includes(v)) {
+      setCat(v);
     } else if (!v) {
       setCat('Tous');
     }
-  }, [searchParams]);
+  }, [searchParams, catNames]);
+
 
   // Keep URL in sync when user clicks pills
   useEffect(() => {
