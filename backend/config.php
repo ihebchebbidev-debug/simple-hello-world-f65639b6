@@ -52,9 +52,8 @@ function requireMethod($methods) {
         jsonResponse(['success' => false, 'error' => 'Method not allowed'], 405);
     }
 }
-    echo json_encode($data, JSON_UNESCAPED_UNICODE);
-    exit;
-}
+
+
 
 function getRequestBody() {
     $raw = file_get_contents('php://input');
