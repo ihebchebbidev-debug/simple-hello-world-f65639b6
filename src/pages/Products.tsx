@@ -151,8 +151,8 @@ export default function Products() {
         <div className="container-x space-y-4 py-5">
           {/* Category pills */}
           <div className="flex gap-2.5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {CATEGORIES.map((c) => {
-              const Icon = CAT_ICON[c];
+            {catNames.map((c) => {
+              const Icon = iconFor(c);
               const active = cat === c;
               return (
                 <button
