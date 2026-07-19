@@ -2,9 +2,11 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
 import {
-  Grid3x3, Sprout, Shield, Bug, Wheat, FlaskConical,
-  Leaf, ArrowRight, Search, X,
+  ArrowRight, Search, X,
 } from 'lucide-react';
+import {
+  IconLeaf, IconShieldLeaf, IconSprout, IconGlobeLeaf, IconFlask, IconBadgeCheck
+} from '@/components/icons/AtlasIcons';
 import Seo from '@/components/Seo';
 import ProductCard from '@/components/ProductCard';
 import { type Product } from '@/data/products';
@@ -16,15 +18,15 @@ import tractorImg from '@/assets/hero.jpg';
 import productsHeroBg from '@/assets/products-hero-bg.jpg';
 
 const CAT_ICON: Record<string, any> = {
-  Tous: Grid3x3,
-  Fongicides: Shield,
-  Insecticides: Bug,
-  Herbicides: Wheat,
-  Engrais: Sprout,
-  Biostimulants: Leaf,
-  Adjuvants: FlaskConical,
+  Tous: IconGlobeLeaf,
+  Fongicides: IconShieldLeaf,
+  Insecticides: IconBadgeCheck,
+  Herbicides: IconSprout,
+  Engrais: IconSprout,
+  Biostimulants: IconLeaf,
+  Adjuvants: IconFlask,
 };
-const iconFor = (name: string) => CAT_ICON[name] ?? Leaf;
+const iconFor = (name: string) => CAT_ICON[name] ?? IconLeaf;
 
 export default function Products() {
   const [searchParams, setSearchParams] = useSearchParams();

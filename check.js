@@ -1,0 +1,1 @@
+import * as lucide from 'lucide-react'; const needed = ['Grid3x3', 'Sprout', 'Shield', 'Bug', 'Wheat', 'FlaskConical', 'Beaker', 'Leaf', 'ArrowRight', 'Search', 'X', 'MessageSquare', 'ClipboardCheck', 'TrendingUp', 'RefreshCw', 'ShieldCheck', 'ChevronRight']; needed.forEach(k => { if (!lucide[k]) console.log(k, 'is MISSING'); });
