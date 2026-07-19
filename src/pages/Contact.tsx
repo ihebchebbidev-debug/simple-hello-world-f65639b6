@@ -161,10 +161,53 @@ export default function Contact() {
             />
           </div>
         </div>
+        <div className="container-x mt-24 mb-16">
+          <div className="mb-12 text-center">
+            <Eyebrow>Sur le terrain</Eyebrow>
+            <h2 className="mt-4 text-3xl md:text-4xl font-extrabold text-ink">Notre équipe à votre écoute</h2>
+            <p className="mx-auto mt-4 max-w-2xl text-lg text-ink/65">
+              Toujours proches de vous, nos ingénieurs et technico-commerciaux sillonnent la Tunisie pour vous accompagner au quotidien sur vos exploitations.
+            </p>
+          </div>
+          
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {REPRESENTATIVES.map((rep) => (
+              <div key={rep.zone} className="card group relative flex flex-col justify-between overflow-hidden p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-premium ring-1 ring-black/5 hover:ring-primary/20">
+                <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-primary/5 transition-transform duration-500 group-hover:scale-150" />
+                
+                <div className="relative z-10">
+                  <div className="mb-5 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-primary-50 text-primary-700 transition-colors group-hover:bg-primary group-hover:text-white">
+                    <MapPin className="h-5 w-5" />
+                  </div>
+                  <h3 className="mb-4 font-bold leading-snug text-ink">{rep.zone}</h3>
+                  <p className="font-semibold text-primary-700">{rep.name}</p>
+                  <p className="mt-1 text-xs font-medium uppercase tracking-wider text-ink/50">{rep.role}</p>
+                </div>
+                
+                <div className="relative z-10 mt-6 border-t border-ink/5 pt-4">
+                  <a href={`tel:${rep.phone.replace(/[^0-9+]/g, '')}`} className="group/phone flex w-max items-center gap-2 text-sm font-medium text-ink/75 transition-colors hover:text-primary">
+                    <Phone className="h-4 w-4 text-ink/40 transition-colors group-hover/phone:text-primary" />
+                    {rep.phone}
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
     </>
   );
 }
+
+const REPRESENTATIVES = [
+  { zone: 'Ben Arous / Mornag', name: 'Mr Haythem Arfaoui', role: 'Représentant Technico-Commercial', phone: '(+216) 93 946 660' },
+  { zone: 'Cap Bon', name: 'Mr Mohamed Yeddis', role: 'Représentant Technico-Commercial', phone: '(+216) 98 646 728' },
+  { zone: 'Sahel / Kairouan', name: 'Mr Mehdi Dhaouadi', role: 'Représentant Technico-Commercial', phone: '(+216) 99 521 236' },
+  { zone: 'Sfax / Gabes / Sud', name: 'Mr Yasser Karray', role: 'Représentant Technico-Commercial', phone: '(+216) 98 420 843' },
+  { zone: 'Kef / Jendouba / Kasserine / Gafsa', name: 'Mr Hamdi Cherni', role: 'Représentant Technico-Commercial', phone: '(+216) 96 014 136' },
+  { zone: 'Béja / Siliana / Zaghouan', name: 'Mr Mohamed Salah Gassoumi', role: 'Représentant Technico-Commercial', phone: '(+216) 98 669 651' },
+  { zone: 'Bizerte / Manouba / Kalaat Andalous', name: 'Mr Mohamed Nabi', role: 'Représentant Technico-Commercial', phone: '(+216) 97 161 920' },
+];
 
 function Field({
   label, name, type = 'text', required = false, value, onChange, error,
