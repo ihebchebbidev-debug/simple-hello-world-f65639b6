@@ -7,14 +7,15 @@ import {
 } from 'lucide-react';
 import Seo from '@/components/Seo';
 import ProductCard from '@/components/ProductCard';
-import { CATEGORIES, type Product } from '@/data/products';
+import { type Product } from '@/data/products';
 import { fetchProducts } from '@/lib/products-api';
+import { fetchCategories, type Category } from '@/lib/categories-api';
 import { cn } from '@/lib/cn';
 import leafDecor from '@/assets/leaf-decor.png';
 import tractorImg from '@/assets/hero.jpg';
 import productsHeroBg from '@/assets/products-hero-bg.jpg';
 
-const CAT_ICON: Record<(typeof CATEGORIES)[number], any> = {
+const CAT_ICON: Record<string, any> = {
   Tous: Grid3x3,
   Fongicides: Shield,
   Insecticides: Bug,
@@ -23,29 +24,31 @@ const CAT_ICON: Record<(typeof CATEGORIES)[number], any> = {
   Biostimulants: Leaf,
   Adjuvants: Beaker,
 };
+const iconFor = (name: string) => CAT_ICON[name] ?? Leaf;
 
 export default function Products() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [products, setProducts] = useState<Product[]>([]);
-  const initialCat = (() => {
-    const v = searchParams.get('category');
-    return v && (CATEGORIES as readonly string[]).includes(v) ? (v as (typeof CATEGORIES)[number]) : 'Tous';
-  })();
-  const [cat, setCat] = useState<(typeof CATEGORIES)[number]>(initialCat);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const catNames = useMemo(() => ['Tous', ...categories.map((c) => c.name)], [categories]);
+  const [cat, setCat] = useState<string>(searchParams.get('category') || 'Tous');
   const [crop, setCrop] = useState<string>('Toutes cultures');
   const [q, setQ] = useState('');
 
   useEffect(() => { fetchProducts().then(setProducts); }, []);
+  useEffect(() => { fetchCategories().then(setCategories); }, []);
+
 
   // Sync category from URL (e.g. footer links)
   useEffect(() => {
     const v = searchParams.get('category');
-    if (v && (CATEGORIES as readonly string[]).includes(v)) {
-      setCat(v as (typeof CATEGORIES)[number]);
+    if (v && catNames.includes(v)) {
+      setCat(v);
     } else if (!v) {
       setCat('Tous');
     }
-  }, [searchParams]);
+  }, [searchParams, catNames]);
+
 
   // Keep URL in sync when user clicks pills
   useEffect(() => {
@@ -131,11 +134,7 @@ export default function Products() {
 
         <div className="container-x relative">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.28em] text-primary-700">
-              Nos produits premium
-              <Leaf className="h-4 w-4" strokeWidth={1.75} />
-            </p>
-            <h1 className="mt-4 font-display text-[clamp(1.9rem,4.2vw,3rem)] font-extrabold leading-[1.05] tracking-[-0.02em] text-ink">
+            <h1 className="font-display text-[clamp(1.9rem,4.2vw,3rem)] font-extrabold leading-[1.05] tracking-[-0.02em] text-ink">
               Des produits premium pour des <span className="text-primary-700">résultats durables.</span>
             </h1>
             <p className="mt-4 text-[15px] leading-[1.65] text-ink/65">
@@ -143,6 +142,7 @@ export default function Products() {
               sélectionnées pour leur efficacité et leur respect de l'environnement.
             </p>
           </div>
+
         </div>
       </section>
 
@@ -151,8 +151,8 @@ export default function Products() {
         <div className="container-x space-y-4 py-5">
           {/* Category pills */}
           <div className="flex gap-2.5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {CATEGORIES.map((c) => {
-              const Icon = CAT_ICON[c];
+            {catNames.map((c) => {
+              const Icon = iconFor(c);
               const active = cat === c;
               return (
                 <button
