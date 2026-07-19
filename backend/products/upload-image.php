@@ -11,6 +11,7 @@ try {
     if (!in_array($ext, $allowed)) jsonResponse(['success' => false, 'error' => 'Invalid extension'], 400);
     $mime = function_exists('mime_content_type') ? @mime_content_type($file['tmp_name']) : null;
     if ($mime && !in_array($mime, $allowedMime, true)) jsonResponse(['success' => false, 'error' => 'Invalid file type'], 400);
+    if ($file['size'] > 10 * 1024 * 1024) jsonResponse(['success' => false, 'error' => 'File too large (max 10MB)'], 400);
 
     $dir = ensureUploadsDir();
     $filename = 'prod_' . time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
