@@ -26,12 +26,6 @@ const VALID_TONES = ['sage', 'sand', 'mist', 'clay', 'sky', 'stone'] as const;
 
 function normalizeImage(url: string | null | undefined): string {
   if (!url) return '';
-  if (url.includes('/uploads/')) {
-    const filename = url.split('/uploads/').pop();
-    if (filename) {
-      return `https://draminesaid.com/directadmin/atlasagricol/backend/uploads/${filename}`;
-    }
-  }
   return url;
 }
 
