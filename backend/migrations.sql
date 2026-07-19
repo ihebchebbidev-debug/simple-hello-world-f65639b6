@@ -66,3 +66,21 @@ INSERT IGNORE INTO `atlasagricole_categories` (`name`, `slug`, `sort_order`) VAL
 ('Engrais', 'engrais', 4),
 ('Biostimulants', 'biostimulants', 5),
 ('Adjuvants', 'adjuvants', 6);
+
+CREATE TABLE IF NOT EXISTS `atlasagricole_contact_messages` (
+  `id`         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name`       VARCHAR(100) NOT NULL,
+  `company`    VARCHAR(150) DEFAULT NULL,
+  `email`      VARCHAR(255) NOT NULL,
+  `phone`      VARCHAR(40)  DEFAULT NULL,
+  `need`       VARCHAR(200) DEFAULT NULL,
+  `message`    TEXT NOT NULL,
+  `ip_address` VARCHAR(45)  DEFAULT NULL,
+  `user_agent` VARCHAR(255) DEFAULT NULL,
+  `status`     ENUM('new','read','archived') NOT NULL DEFAULT 'new',
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_created_at` (`created_at`),
+  KEY `idx_status`     (`status`),
+  KEY `idx_email`      (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

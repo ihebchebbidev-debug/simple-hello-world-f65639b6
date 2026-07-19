@@ -46,6 +46,15 @@ function jsonResponse($data, $code = 200) {
     exit;
 }
 
+function requireMethod($methods) {
+    $methods = is_array($methods) ? $methods : [$methods];
+    if (!in_array($_SERVER['REQUEST_METHOD'], $methods, true)) {
+        jsonResponse(['success' => false, 'error' => 'Method not allowed'], 405);
+    }
+}
+
+
+
 function getRequestBody() {
     $raw = file_get_contents('php://input');
     if ($raw !== '' && $raw !== false) {

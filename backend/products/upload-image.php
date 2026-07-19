@@ -1,12 +1,16 @@
 <?php
 require_once __DIR__ . '/../config.php';
+requireMethod(['POST']);
 try {
     if (empty($_FILES['file'])) jsonResponse(['success' => false, 'error' => 'No file'], 400);
     $file = $_FILES['file'];
     if ($file['error'] !== UPLOAD_ERR_OK) jsonResponse(['success' => false, 'error' => 'Upload error'], 400);
     $allowed = ['jpg','jpeg','png','webp','gif'];
+    $allowedMime = ['image/jpeg','image/png','image/webp','image/gif'];
     $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
     if (!in_array($ext, $allowed)) jsonResponse(['success' => false, 'error' => 'Invalid extension'], 400);
+    $mime = function_exists('mime_content_type') ? @mime_content_type($file['tmp_name']) : null;
+    if ($mime && !in_array($mime, $allowedMime, true)) jsonResponse(['success' => false, 'error' => 'Invalid file type'], 400);
     if ($file['size'] > 10 * 1024 * 1024) jsonResponse(['success' => false, 'error' => 'File too large (max 10MB)'], 400);
 
     $dir = ensureUploadsDir();
