@@ -7,14 +7,15 @@ import {
 } from 'lucide-react';
 import Seo from '@/components/Seo';
 import ProductCard from '@/components/ProductCard';
-import { CATEGORIES, type Product } from '@/data/products';
+import { type Product } from '@/data/products';
 import { fetchProducts } from '@/lib/products-api';
+import { fetchCategories, type Category } from '@/lib/categories-api';
 import { cn } from '@/lib/cn';
 import leafDecor from '@/assets/leaf-decor.png';
 import tractorImg from '@/assets/hero.jpg';
 import productsHeroBg from '@/assets/products-hero-bg.jpg';
 
-const CAT_ICON: Record<(typeof CATEGORIES)[number], any> = {
+const CAT_ICON: Record<string, any> = {
   Tous: Grid3x3,
   Fongicides: Shield,
   Insecticides: Bug,
@@ -23,19 +24,20 @@ const CAT_ICON: Record<(typeof CATEGORIES)[number], any> = {
   Biostimulants: Leaf,
   Adjuvants: Beaker,
 };
+const iconFor = (name: string) => CAT_ICON[name] ?? Leaf;
 
 export default function Products() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [products, setProducts] = useState<Product[]>([]);
-  const initialCat = (() => {
-    const v = searchParams.get('category');
-    return v && (CATEGORIES as readonly string[]).includes(v) ? (v as (typeof CATEGORIES)[number]) : 'Tous';
-  })();
-  const [cat, setCat] = useState<(typeof CATEGORIES)[number]>(initialCat);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const catNames = useMemo(() => ['Tous', ...categories.map((c) => c.name)], [categories]);
+  const [cat, setCat] = useState<string>(searchParams.get('category') || 'Tous');
   const [crop, setCrop] = useState<string>('Toutes cultures');
   const [q, setQ] = useState('');
 
   useEffect(() => { fetchProducts().then(setProducts); }, []);
+  useEffect(() => { fetchCategories().then(setCategories); }, []);
+
 
   // Sync category from URL (e.g. footer links)
   useEffect(() => {
