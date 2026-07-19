@@ -24,6 +24,7 @@ const CAT_ICON: Record<string, any> = {
   Herbicides: IconSprout,
   Engrais: IconSprout,
   Biostimulants: IconLeaf,
+  'Engrais & Biostimulants': IconSprout,
   Adjuvants: IconFlask,
 };
 const iconFor = (name: string) => CAT_ICON[name] ?? IconLeaf;

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Mail, Phone, MapPin, MessageCircle, ArrowRight, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { Mail, Phone, MapPin, MessageCircle, ArrowRight, CircleCheck, AlertCircle, Loader2 } from 'lucide-react';
 import { z } from 'zod';
 import Seo from '@/components/Seo';
 import { Eyebrow } from '@/components/Section';
@@ -139,7 +139,7 @@ export default function Contact() {
 
               {status === 'sent' && (
                 <div className="mt-6 flex items-center gap-3 rounded-2xl bg-primary-50 p-4 text-sm text-primary-700">
-                  <CheckCircle2 className="h-5 w-5" /> Merci ! Votre demande a bien été envoyée.
+                  <CircleCheck className="h-5 w-5" /> Merci ! Votre demande a bien été envoyée.
                 </div>
               )}
               {status === 'error' && (

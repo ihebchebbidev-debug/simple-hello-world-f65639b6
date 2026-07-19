@@ -2,7 +2,7 @@ export type Product = {
   id: string;
   slug: string;
   name: string;
-  category: 'Fongicides' | 'Insecticides' | 'Herbicides' | 'Engrais' | 'Biostimulants' | 'Adjuvants';
+  category: 'Fongicides' | 'Insecticides' | 'Herbicides' | 'Engrais' | 'Biostimulants' | 'Adjuvants' | 'Engrais & Biostimulants';
   shortDescription: string;
   description: string;
   image: string;
@@ -26,6 +26,7 @@ export const CATEGORIES = [
   'Herbicides',
   'Engrais',
   'Biostimulants',
+  'Engrais & Biostimulants',
   'Adjuvants',
 ] as const;
 
@@ -39,6 +40,7 @@ const CAT_IMG: Record<string, string> = {
   Herbicides: bottleAmber,
   Engrais: bagWhite,
   Biostimulants: bottleGreen,
+  'Engrais & Biostimulants': bagWhite,
   Adjuvants: bottleAmber,
 };
 

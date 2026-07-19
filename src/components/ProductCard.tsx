@@ -12,18 +12,19 @@ const TONE: Record<Product['tone'], { bg: string; glow: string; chip: string; ch
   stone: { bg: 'bg-gradient-to-br from-[#F1EFEA] to-[#E4E0D5]', glow: 'from-[#CFC9B7]/60', chip: 'bg-white/80', chipText: 'text-[#5A4E36]' },
 };
 
-const CAT_ICON: Record<Product['category'], any> = {
+const CAT_ICON: Record<string, any> = {
   Fongicides: Shield,
   Insecticides: Shield,
   Herbicides: Droplets,
   Engrais: Sprout,
   Biostimulants: Leaf,
+  'Engrais & Biostimulants': Sprout,
   Adjuvants: Tractor,
 };
 
 export default function ProductCard({ p }: { p: Product }) {
-  const tone = TONE[p.tone];
-  const CatIcon = CAT_ICON[p.category];
+  const tone = TONE[p.tone] || TONE.sage;
+  const CatIcon = CAT_ICON[p.category] || Leaf;
 
   return (
     <Link

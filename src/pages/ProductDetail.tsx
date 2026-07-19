@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {
-  ArrowLeft, ArrowRight, ShieldCheck, Leaf, FlaskConical, CheckCircle2,
+  ArrowLeft, ArrowRight, ShieldCheck, Leaf, FlaskConical, CircleCheck,
   Download, ChevronRight, ChevronLeft, Sprout, Search, Expand, X,
 } from 'lucide-react';
 import Seo from '@/components/Seo';
@@ -106,7 +106,7 @@ export default function ProductDetail() {
     { I: ShieldCheck, t: 'Homologué' },
     { I: FlaskConical, t: 'Qualité laboratoire' },
     { I: Leaf, t: 'Respect des cultures' },
-    { I: CheckCircle2, t: 'Support technique' },
+    { I: CircleCheck, t: 'Support technique' },
   ];
 
   const prevSlide = () => setActiveSlide((activeSlide - 1 + slides.length) % slides.length);
