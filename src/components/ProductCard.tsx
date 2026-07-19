@@ -4,12 +4,12 @@ import { cn } from '@/lib/cn';
 import type { Product } from '@/data/products';
 
 const TONE: Record<Product['tone'], { bg: string; glow: string; chip: string; chipText: string }> = {
-  sage:  { bg: 'bg-gradient-to-br from-[#F3F8EF] to-[#E4EFD8]', glow: 'from-[#C9DEB0]/60', chip: 'bg-white/80', chipText: 'text-[#3F6B21]' },
-  sand:  { bg: 'bg-gradient-to-br from-[#FAF3E4] to-[#F5E7C4]', glow: 'from-[#EBD494]/60', chip: 'bg-white/80', chipText: 'text-[#8A6A15]' },
-  mist:  { bg: 'bg-gradient-to-br from-[#EEF5EE] to-[#DCEBE0]', glow: 'from-[#BFD8C4]/60', chip: 'bg-white/80', chipText: 'text-[#2E5B36]' },
-  clay:  { bg: 'bg-gradient-to-br from-[#FBEDE2] to-[#F5D9C4]', glow: 'from-[#EDBE9C]/60', chip: 'bg-white/80', chipText: 'text-[#8A4A1E]' },
-  sky:   { bg: 'bg-gradient-to-br from-[#EAF1F6] to-[#D5E4EE]', glow: 'from-[#B5CFDE]/60', chip: 'bg-white/80', chipText: 'text-[#215B7A]' },
-  stone: { bg: 'bg-gradient-to-br from-[#F1EFEA] to-[#E4E0D5]', glow: 'from-[#CFC9B7]/60', chip: 'bg-white/80', chipText: 'text-[#5A4E36]' },
+  sage:  { bg: 'bg-white', glow: 'from-[#C9DEB0]/60', chip: 'bg-white/80', chipText: 'text-[#3F6B21]' },
+  sand:  { bg: 'bg-white', glow: 'from-[#EBD494]/60', chip: 'bg-white/80', chipText: 'text-[#8A6A15]' },
+  mist:  { bg: 'bg-white', glow: 'from-[#BFD8C4]/60', chip: 'bg-white/80', chipText: 'text-[#2E5B36]' },
+  clay:  { bg: 'bg-white', glow: 'from-[#EDBE9C]/60', chip: 'bg-white/80', chipText: 'text-[#8A4A1E]' },
+  sky:   { bg: 'bg-white', glow: 'from-[#B5CFDE]/60', chip: 'bg-white/80', chipText: 'text-[#215B7A]' },
+  stone: { bg: 'bg-white', glow: 'from-[#CFC9B7]/60', chip: 'bg-white/80', chipText: 'text-[#5A4E36]' },
 };
 
 const CAT_ICON: Record<string, any> = {
